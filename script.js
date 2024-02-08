@@ -5,7 +5,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
 }).addTo(mymap);
 
-
 // Define markers and bind popups
 var marker1 = L.marker([38.6369, -90.2943]).addTo(mymap).bindPopup("<b>Welcome!</b><br>I am Saint Louis Zoo.");
 var marker2 = L.marker([38.6403, -90.2937]).addTo(mymap).bindPopup("<b>Welcome!</b><br>I am Art Hill.");
@@ -17,3 +16,14 @@ var marker7 = L.marker([38.6128, -90.2594]).addTo(mymap).bindPopup("<b>Welcome!<
 var marker8 = L.marker([38.6287, -90.2706]).addTo(mymap).bindPopup("<b>Welcome!</b><br>I am the Saint Louis Science Center.");
 var marker9 = L.marker([38.6226, -90.1928]).addTo(mymap).bindPopup("<b>Welcome!</b><br>I am Busch Stadium.");
 var marker10 = L.marker([38.6258, -90.1896]).addTo(mymap).bindPopup("<b>Welcome!</b><br>I am the Old Courthouse.");
+
+// Adding GeoJSON layer from the provided URL
+fetch('https://raw.githubusercontent.com/HossainIdrish/Project1_App1/main/stl_boundary.json')
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data).addTo(mymap);
+    })
+    .catch(error => {
+        console.error('Error fetching GeoJSON data:', error);
+    });
+
