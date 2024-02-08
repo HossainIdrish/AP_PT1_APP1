@@ -1,4 +1,4 @@
-// Create Leaflet map
+  // Create Leaflet map
 var mymap = L.map('mapid').setView([38.6562, -90.3052], 12);
 
 // Add OpenStreetMap tile layer
@@ -35,4 +35,16 @@ fetch('https://raw.githubusercontent.com/HossainIdrish/Project1_App1/main/tl_201
         console.error('Error fetching GeoJSON data:', error);
     });
 
-
+// Add Search Control
+var geocoder = L.Control.geocoder({
+    defaultMarkGeocode: false
+}).on('markgeocode', function(e) {
+    var bbox = e.geocode.bbox;
+    var poly = L.polygon([
+        bbox.getSouthEast(),
+        bbox.getNorthEast(),
+        bbox.getNorthWest(),
+        bbox.getSouthWest()
+    ]).addTo(mymap);
+    mymap.fitBounds(poly.getBounds());
+}).addTo(mymap);
